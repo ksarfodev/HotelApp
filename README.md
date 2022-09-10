@@ -19,7 +19,8 @@ This project consists of the following:
 # Live Demo
 ## Azure App Service
 > **Note**:The Azure instance appears to be 1 day ahead
-https://hotelappblazor20220909172054.azurewebsites.net/
+#
+https://hotelappblazor20220909233915.azurewebsites.net
 
 ## Android APK
 * Utilizes an Azure API
