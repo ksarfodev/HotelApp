@@ -24,7 +24,7 @@ https://hotelappblazor20220909233915.azurewebsites.net
 
 ## Android APK
 * Utilizes an Azure API
-Located at HotelApp.Maui/Signed APK/com.companyname.hotelapp.maui-Signed.apk
+* Located at HotelApp.Maui/Signed APK/com.companyname.hotelapp.maui-Signed.apk
 
 
 
