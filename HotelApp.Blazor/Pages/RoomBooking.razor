@@ -1,0 +1,218 @@
+﻿@page "/roombooking"
+
+
+@inject IJSRuntime JS
+@inject NavigationManager NavManager
+@inject RoomSelection SelectedRoom
+@inject HotelApp.Blazor.Services.IApiService RoomSearch
+
+@implements IAsyncDisposable
+
+
+
+<div class="grid-container">
+    <div class="header">Available Rooms</div>
+    <div class="dates">@SelectedRoom.StartDate.ToShortDateString() - @SelectedRoom.EndDate.ToShortDateString()</div>
+
+    @if (AvailableRooms is not null)
+    {
+        @if (AvailableRooms.Select(x => x.Id).Contains((int)Enums.RoomTypes.Executive) == true)
+        {
+            <div class="room exec">
+                <h2 class="room-heading">Executive Suite</h2>
+                <h3 class="room-price"><span class="dollar">$</span>205</h3>
+                <ul class="room-features">
+                    <li class="room-item">Pullout couch</li>
+                    <li class="room-item">Whirlpool tub</li>
+                    <li class="room-item">Full-size Fridge</li>
+                </ul>
+                <a @onclick="() => OpenModal(AvailableRooms.Where(x => x.Id == (int)Enums.RoomTypes.Executive).Select(u => u).First())" id="execBtn" class="btn">Book Now</a>
+            </div>
+        }
+        else if (AvailableRooms.Select(x => x.Id).Contains((int)Enums.RoomTypes.Executive) == false)
+        {
+            <div style="opacity:20%" class="room exec">
+                <h2 class="room-heading">Executive Suite</h2>
+                <h3 class="room-price"><span class="dollar">$</span>205</h3>
+                <ul class="room-features">
+                    <li class="room-item">Pullout couch</li>
+                    <li class="room-item">Whirlpool tub</li>
+                    <li class="room-item">Full-size Fridge</li>
+                </ul>
+                <a id="execBtn"> Booked</a>
+            </div>
+
+        }
+        @if (AvailableRooms.Select(x => x.Id).Contains((int)Enums.RoomTypes.King) == true)
+        {
+            <div class="room king">
+                <h2 class="room-heading">King Beds</h2>
+                <h3 class="room-price"><span class="dollar">$</span>115</h3>
+                <ul class="room-features">
+                    <li class="room-item">Work Desk</li>
+                    <li class="room-item">1 Bath</li>
+                    <li class="room-item">Safe</li>
+                </ul>
+                <a @onclick="() => OpenModal(AvailableRooms.Where(x => x.Id == (int)Enums.RoomTypes.King).Select(u => u).First())" id="kingBtn" class="btn-king">Book Now</a>
+            </div>
+        }
+        else if (AvailableRooms.Select(x => x.Id).Contains((int)Enums.RoomTypes.King) == false)
+        {
+            <div style="opacity:20%" class="room king">
+                <h2 class="room-heading">King Beds</h2>
+                <h3 class="room-price"><span class="dollar">$</span>115</h3>
+                <ul class="room-features">
+                    <li class="room-item">Work Desk</li>
+                    <li class="room-item">1 Bath</li>
+                    <li class="room-item">Safe</li>
+                </ul>
+                <a id="kingBtn">Booked</a>
+            </div>
+        }
+
+        @if (AvailableRooms.Select(x => x.Id).Contains((int)Enums.RoomTypes.Queen) == true)
+        {
+            <div class="room queen">
+                <h2 class="room-heading">2 Queen Beds</h2>
+                <h3 class="room-price"><span class="dollar">$</span>100</h3>
+                <ul class="room-features">
+                    <li class="room-item">WiFi</li>
+                    <li class="room-item">Blackout blinds</li>
+                    <li class="room-item">Video Games</li>
+                </ul>
+                <a @onclick="() => OpenModal(AvailableRooms.Where(x => x.Id == (int)Enums.RoomTypes.Queen).Select(u => u).First())" id="queenBtn" class="btn">Book Now</a>
+
+            </div>
+        }
+        else if (AvailableRooms.Select(x => x.Id).Contains((int)Enums.RoomTypes.Queen) == false)
+        {
+            <div style="opacity:20%" class="room queen">
+                <h2 class="room-heading">2 Queen Beds</h2>
+                <h3 class="room-price"><span class="dollar">$</span>100</h3>
+                <ul class="room-features">
+                    <li class="room-item">WiFi</li>
+                    <li class="room-item">Blackout blinds</li>
+                    <li class="room-item">Video Games</li>
+                </ul>
+                <a id="queenBtn">Booked</a>
+
+            </div>
+        }
+    }
+    <div class="home-btn">
+        <a @onclick="() => GoHome()">&times;</a>
+    </div>
+
+</div>
+
+<div id="myModal" class="full-screen">
+    <EditForm Model="SelectedRoom" OnValidSubmit="BookRoom" class="my-style">
+        <DataAnnotationsValidator />
+
+        <span style="font-size: 56px;text-decoration:none" class="close">&times;</span><br>
+        <p class="room-info">@SelectedRoom.RoomType?.Title</p>
+        <input @bind-value="@SelectedRoom.FirstName" placeholder="First Name" /><br>
+        <ValidationMessage For="@(() => SelectedRoom.FirstName)" />
+        <input @bind-value="@SelectedRoom.LastName" placeholder="Last Name" /><br>
+        <ValidationMessage For="@(() => SelectedRoom.LastName)" />
+        <button class="btn book-room">Book Room</button>
+
+    </EditForm>
+</div>
+
+<style>
+    .my-style {
+
+    position: fixed;
+    margin: 10px;
+    padding: 50px;
+    background-color: #fefefe;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    }
+
+</style>
+
+
+@code {
+
+    private IJSObjectReference? module;
+
+    List<RoomTypeModel> AvailableRooms { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        try
+        {
+            if (firstRender)
+            {
+                AvailableRooms = await RoomSearch.GetAvalilableRooms();
+
+                StateHasChanged();
+            }
+            else
+            {
+                module = await JS.InvokeAsync<IJSObjectReference>("import", "./Pages/RoomBooking.razor.js");
+                await module.InvokeVoidAsync("initBooking");
+            }
+        }
+        catch(Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+        }
+       
+    }
+
+    async Task BookRoom()
+    {
+        try
+        {
+            var response = await RoomSearch.BookGuest();
+
+            SelectedRoom.FirstName = "";
+            SelectedRoom.LastName = "";
+
+            NavManager.NavigateTo("/");
+        }
+        catch (Exception ex) 
+        {
+            Console.WriteLine(ex);
+        }
+    }
+
+    void GoHome()
+    {
+        NavManager.NavigateTo("/");
+    }
+
+    async Task OpenModal(RoomTypeModel room)
+    {
+        try
+        {
+            SelectedRoom.FirstName = "";
+            SelectedRoom.LastName = "";
+
+            SelectedRoom.RoomType = room;
+
+            module = await JS.InvokeAsync<IJSObjectReference>("import", "./Pages/RoomBooking.razor.js");
+            await module.InvokeVoidAsync("initBooking");
+
+            await RoomSearch.GetRoomTypeById();
+
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine(ex.Message);
+        }
+    }
+
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        if (module is not null)
+        {
+            await module.DisposeAsync();
+        }
+    }
+}
+

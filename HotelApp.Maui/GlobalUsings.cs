@@ -1,0 +1,13 @@
+﻿global using CommunityToolkit.Mvvm.DependencyInjection;
+global using CommunityToolkit.Mvvm.ComponentModel;
+global using HotelApp.Maui.Services;
+global using HotelApp.Maui.ViewModel;
+global using Microsoft.Extensions.Configuration;
+global using System.Reflection;
+global using HotelApp.Maui.Model;
+global using CommunityToolkit.Mvvm.Input;
+global using System.Collections.ObjectModel;
+global using System.Collections.Generic;
+global using System.Diagnostics;
+global using System.Text;
+global using System.Text.Json;

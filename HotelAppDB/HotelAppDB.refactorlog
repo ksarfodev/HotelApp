@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="2cc4c5c9-9635-4ef6-a702-a71298623cfd" ChangeDateTime="08/17/2022 15:50:43">
+    <Property Name="ElementName" Value="[dbo].[FK_Rooms_ToTable]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[Rooms]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[FK_Rooms_roomTypesTable]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="abf5c5cb-827b-4764-a70c-6b832bbd31be" ChangeDateTime="08/17/2022 15:50:52">
+    <Property Name="ElementName" Value="[dbo].[FK_Rooms_roomTypesTable]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[Rooms]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[FK_Rooms_RoomTypesTable]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="1bfef557-b19a-4847-b44e-61074761b1f8" ChangeDateTime="08/17/2022 15:56:17">
+    <Property Name="ElementName" Value="[dbo].[FK_Bookings_ToTable]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[Bookings]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[FK_Bookings_Rooms]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="80bb505c-68bc-4abc-b983-a17434dfed1d" ChangeDateTime="08/17/2022 15:57:15">
+    <Property Name="ElementName" Value="[dbo].[Bookings].[Gust]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Bookings]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="GuestId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ff63f31b-8293-4a8a-970b-9aacf6046451" ChangeDateTime="08/17/2022 15:59:18">
+    <Property Name="ElementName" Value="[dbo].[Bookings].[Chec]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Bookings]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CheckedIn" />
+  </Operation>
+</Operations>

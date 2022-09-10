@@ -1,0 +1,124 @@
+﻿@page "/roomsearch"
+
+@inject IJSRuntime JS
+@inject RoomSelection SelectedRoom
+
+
+@implements IAsyncDisposable
+@inject NavigationManager NavManager
+
+<div class="grid-container">
+    <header class="flex-container"><h1>ROOM SEARCH</h1></header>
+
+    <div class="start-date flex-container">
+        <div class="date-picker">
+            <div class="input">
+                <div class="result">Select Start Date: <span id="check-in-date"> @DateAsString.CheckIn</span></div>
+                <button> <i class="fa fa-calendar"></i></button>
+            </div>
+            <div class="calendar"></div>
+        </div>
+    </div>
+
+    <div class="end-date flex-container">
+        <div class="date-picker">
+
+            <div class="input">
+                <div class="result">Select End Date: <span id="check-out-date">@DateAsString.CheckOut</span></div>
+                <button><i class="fa fa-calendar"></i></button>
+            </div>
+            <div class="calendar"></div>
+        </div>
+    </div>
+
+    <div class="search flex-container">
+        <button @onclick="() => GoToBooking()" class="search-btn">
+            <span class="text">Search</span>
+        </button>
+    </div>
+
+    <footer class="flex-container">
+        <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestiae, eos obcaecati. Corporis voluptatum quibusdam laboriosam optio blanditiis itaque expedita fugiat repellendus sit commodi? Inventore ipsa, odio officia iste cumque eum.
+        </p>
+    </footer>
+
+</div>
+
+<style>
+    body {
+        width: 100vw;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: url('../patrick-robert-doyle-ah8zkxqfita-unsplash.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+</style>
+
+
+
+@code {
+    private IJSObjectReference? module;
+
+
+    public class DateString
+    {
+        public string CheckIn { get; set; }
+        public string CheckOut { get; set; }
+    }
+
+    DateString DateAsString = new DateString
+        {
+            CheckIn = DateTime.Now.Date.ToString("MM/dd/yyyy"),
+            CheckOut = DateTime.Now.Date.AddDays(1).ToString("MM/dd/yyyy")
+        };
+
+    async Task GoToBooking()
+    {
+        await ProcessChange();
+        NavManager.NavigateTo("roombooking");
+    }
+
+    async Task ProcessChange()
+    {
+        var mod = await JS.InvokeAsync<IJSObjectReference>("import", "./Pages/RoomSearch.razor.js");
+
+        DateString dates = await mod.InvokeAsync<DateString>("getDates");
+
+        DateTime.TryParse(dates.CheckOut, out DateTime endDt);
+        DateTime.TryParse(dates.CheckIn, out DateTime startDt);
+
+        SelectedRoom.StartDate = startDt.Date;
+        SelectedRoom.EndDate = endDt.Date;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        try
+        {
+            if (firstRender)
+            {
+                module = await JS.InvokeAsync<IJSObjectReference>("import", "./Pages/RoomSearch.razor.js");
+                await module.InvokeVoidAsync("initCalendar");
+            }
+        }
+        catch (Exception ex)
+        {
+
+            Debug.WriteLine(ex.Message);
+        }
+       
+    }
+
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        if (module is not null)
+        {
+            await module.DisposeAsync();
+        }
+    }
+}

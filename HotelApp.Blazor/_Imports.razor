@@ -1,0 +1,20 @@
+﻿@using System.Net.Http
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Components.Web.Virtualization
+@using Microsoft.JSInterop
+@using HotelApp.Blazor
+@using HotelApp.Blazor.Shared
+@using HotelApp.Blazor.Models
+@using System.Text.Json;
+@using System.Text;
+@using System.Diagnostics;
+@using HotelApp.Blazor.Enums;
+@using HotelApp.Blazor.Services;
+
+@inject IHttpClientFactory _httpClientFactory;
+@inject IConfigurationBuilder _config;
+@inject NavigationManager NavManager;
