@@ -8,7 +8,7 @@ Source code can be found here: https://www.csharpmastercourse.com/
 This project consists of the following:
 * Blazor Server App
 > * Used for guest check-in
-> * Front-end HTML and CSS designed using VSCode then ported to Blazor
+> * Front-end HTML and CSS designed using VSCode then implemented in Blazor server project
 > * External JavaScript libraries implemented using JSInterop
 * ASP.NET API 
 > * Sits between database and MAUI/Blazor Apps
@@ -17,11 +17,14 @@ This project consists of the following:
 
 
 # Live Demo
-## Running on Azure App Service
-https://hotelappblazor20220909172054.azurewebsites.net/
+## Azure App Service
+> **Note**:The Azure instance appears to be 1 day ahead
+#
+https://hotelappblazor20220909233915.azurewebsites.net
 
 ## Android APK
 * Utilizes an Azure API
+* Located at HotelApp.Maui/Signed APK/com.companyname.hotelapp.maui-Signed.apk
 
 
 
