@@ -8,7 +8,7 @@ Source code can be found here: https://www.csharpmastercourse.com/
 This project consists of the following:
 * Blazor Server App
 > * Used for guest check-in
-> * Front-end HTML and CSS designed using VSCode then ported to Blazor
+> * Front-end HTML and CSS designed using VSCode then implemented in Blazor server project
 > * External JavaScript libraries implemented using JSInterop
 * ASP.NET API 
 > * Sits between database and MAUI/Blazor Apps
