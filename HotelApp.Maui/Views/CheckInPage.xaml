@@ -6,44 +6,31 @@
              xmlns:model="clr-namespace:HotelApp.Maui.Model"
              x:DataType="viewmodel:CheckInPageViewModel"
 
-             Title="Check-In Page"  Height="300" Width="500">
+             Title="Check-In Page">
 
+    <ScrollView>
+        <VerticalStackLayout >
+            <Grid Margin="20" RowDefinitions="Auto,Auto,Auto,Auto,Auto,*" ColumnDefinitions="Auto,Auto,*">
 
-    <VerticalStackLayout >
-        <Grid Margin="20">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <HorizontalStackLayout  Grid.Row="0">
-                <Label FontAttributes="Bold" Margin="5">Reservation:</Label>
-                <Label  x:Name="firstNameText" Text="{Binding BookingFullModel.FirstName}" Margin="5" />
-                <Label  Text="{Binding BookingFullModel.LastName}" Margin="5" />
-            </HorizontalStackLayout>
-            <HorizontalStackLayout Grid.Row="1">
-                <Label FontAttributes="Bold" Margin="5">Room:</Label>
-                <Label  Text="{Binding BookingFullModel.Title}" Margin="5" />
-            </HorizontalStackLayout>
-            <HorizontalStackLayout  Grid.Row="2">
-                <Label FontAttributes="Bold" Margin="5">Room Number:</Label>
-                <Label  Text="{Binding BookingFullModel.RoomNumber}" Margin="5" />
-            </HorizontalStackLayout>
-            <HorizontalStackLayout Grid.Row="3">
-                <Label FontAttributes="Bold" Margin="5">Total Cost:</Label>
-                <Label Text="{Binding BookingFullModel.TotalCost}" Margin="5" />
-            </HorizontalStackLayout>
-            <Button Margin="10" Padding="10" Grid.Row="4" Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:CheckInPageViewModel}},Path=BookGuestCommand }"  CommandParameter="{Binding .}" IsEnabled="{Binding IsNotBusy}" Text="Confirm Check-In"></Button>
-        </Grid>
-    </VerticalStackLayout>
+                <HorizontalStackLayout  Grid.Row="0">
+                    <Label FontAttributes="Bold" Margin="5">Reservation:</Label>
+                    <Label  x:Name="firstNameText" Text="{Binding BookingFullModel.FirstName}" Margin="5" />
+                    <Label  Text="{Binding BookingFullModel.LastName}" Margin="5" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Grid.Row="1">
+                    <Label FontAttributes="Bold" Margin="5">Room:</Label>
+                    <Label  Text="{Binding BookingFullModel.Title}" Margin="5" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout  Grid.Row="2">
+                    <Label FontAttributes="Bold" Margin="5">Room Number:</Label>
+                    <Label  Text="{Binding BookingFullModel.RoomNumber}" Margin="5" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Grid.Row="3">
+                    <Label FontAttributes="Bold" Margin="5">Total Cost:</Label>
+                    <Label Text="{Binding BookingFullModel.TotalCost,StringFormat='{0:C2}'}" Margin="5" />
+                </HorizontalStackLayout>
+                <Button Margin="10" Padding="10" Grid.Row="4" Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:CheckInPageViewModel}},Path=BookGuestCommand }"  CommandParameter="{Binding .}" IsEnabled="{Binding IsNotBusy}" Text="Confirm Check-In"></Button>
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

@@ -5,71 +5,55 @@
              xmlns:model="clr-namespace:HotelApp.Maui.Model"
              xmlns:viewmodel="clr-namespace:HotelApp.Maui.ViewModel"
              x:DataType="viewmodel:BookingViewModel">
-
-
-
-    <StackLayout Margin="20">
-       
+    <ScrollView>
+        <StackLayout Margin="20" >
 
             <Label Grid.Row="0" Grid.Column="0" 
                    Text="Search for Guest" FontSize="28"/>
 
             <HorizontalStackLayout  Grid.Row="1" Grid.Column="0">
 
-            <Entry x:Name="LastNameText" Placeholder="Last Name" Text="{Binding LastNameInput}" MinimumWidthRequest="200" Margin="5" />
+                <Entry x:Name="LastNameText" Placeholder="Last Name" Text="{Binding LastNameInput}" MinimumWidthRequest="200" Margin="5" />
 
-            <Button x:Name="SearchForGuest" Margin="5" Padding="5"  Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:BookingViewModel}},Path=GetBookingsCommand }"  CommandParameter="{Binding .}" IsEnabled="{Binding IsNotBusy}" Text="Search"></Button>
+                <Button x:Name="SearchForGuest" Margin="5" Padding="5"  Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:BookingViewModel}},Path=GetBookingsCommand }"  CommandParameter="{Binding .}" IsEnabled="{Binding IsNotBusy}" Text="Search"></Button>
 
             </HorizontalStackLayout>
 
-        <CollectionView   EmptyView="No items to display"  ItemsSource="{Binding Bookings}" VerticalScrollBarVisibility="Always" SelectionMode="None">
+            <CollectionView VerticalScrollBarVisibility="Always" EmptyView="No items to display"  ItemsSource="{Binding Bookings}" SelectionMode="None">
                 <CollectionView.ItemTemplate>
 
-                <DataTemplate x:DataType="model:BookingFullModel">
+                    <DataTemplate x:DataType="model:BookingFullModel">
+                        <Frame>
+                            <Grid Padding="20" RowDefinitions="Auto,Auto,Auto,*" ColumnDefinitions="Auto,Auto,*">
 
-                    <Grid Padding="20">
-                      
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
+                                <HorizontalStackLayout Grid.Column="0" Grid.Row="0">
+                                    <Label FontAttributes="Bold" Margin="5" Text="Reservation"></Label>
+                                    <Label  Text="{Binding FirstName}" Margin="5" />
+                                    <Label  Text="{Binding LastName}" Margin="5" />
+                                </HorizontalStackLayout>
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
+                                <Button Margin="5" Padding="5" Grid.Row="0" Grid.Column="1" Grid.RowSpan="4"
+                             VerticalOptions="Center"  Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:BookingViewModel}},Path=CheckInCommand }"  CommandParameter="{Binding .}" Text="Check In"></Button>
 
-                        <HorizontalStackLayout Grid.Row="0">
-                            <Label FontAttributes="Bold" Margin="5" Text="Reservation"></Label>
-                            <Label  Text="{Binding FirstName}" Margin="5" />
-                            <Label  Text="{Binding LastName}" Margin="5" />
-                        </HorizontalStackLayout>
+                                <HorizontalStackLayout Grid.Row="1">
+                                    <Label FontAttributes="Bold" Margin="5" Text="Room:"></Label>
+                                    <Label  Text="{Binding Title}" Margin="5" />
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Grid.Column="0" Grid.Row="2">
+                                    <Label FontAttributes="Bold" Margin="5" Text="Room Number:"></Label>
+                                    <Label  Text="{Binding RoomNumber}" Margin="5" />
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Grid.Column="0" Grid.Row="3">
+                                    <Label FontAttributes="Bold" Margin="5" Text="Total Cost:"></Label>
+                                    <Label  Text="{Binding TotalCost,StringFormat='{0:C2}'}" Margin="5" />
+                                </HorizontalStackLayout>
 
-                        <Button Margin="5" Padding="10" Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" 
-                                 VerticalOptions="Center" Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:BookingViewModel}},Path=CheckInCommand }"  CommandParameter="{Binding .}" Text="Check In"></Button>
-
-                        <HorizontalStackLayout Grid.Row="1">
-                            <Label FontAttributes="Bold" Margin="5" Text="Room:"></Label>
-                            <Label  Text="{Binding Title}" Margin="5" />
-                        </HorizontalStackLayout>
-                        <HorizontalStackLayout Grid.Row="2">
-                            <Label FontAttributes="Bold" Margin="5" Text="Room Number:"></Label>
-                            <Label  Text="{Binding RoomNumber}" Margin="5" />
-                        </HorizontalStackLayout>
-                        <HorizontalStackLayout Grid.Row="3">
-                            <Label FontAttributes="Bold" Margin="5" Text="Total Cost:"></Label>
-                            <Label  Text="{Binding TotalCost,StringFormat='{0:C2}'}" Margin="5" />
-                        </HorizontalStackLayout>
-      
-                    </Grid>
-                </DataTemplate>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
                 </CollectionView.ItemTemplate>
 
             </CollectionView>
-   
-    </StackLayout>
-
+        </StackLayout>
+    </ScrollView>
 </ContentPage>
