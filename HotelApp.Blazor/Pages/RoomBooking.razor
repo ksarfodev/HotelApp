@@ -209,9 +209,16 @@
 
     async ValueTask IAsyncDisposable.DisposeAsync()
     {
-        if (module is not null)
+        try
         {
-            await module.DisposeAsync();
+            if (module is not null)
+            {
+                await module.DisposeAsync();
+            }
+        }
+        catch (Exception ex) when (ex.GetType().Name == "JSDisconnectedException")
+        {
+            Debug.WriteLine(ex);
         }
     }
 }
