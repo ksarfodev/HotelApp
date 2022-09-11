@@ -7,12 +7,13 @@ The original source code can be found by selecting enroll now at: https://www.cs
 
 This project consists of the following:
 * Blazor Server App
-> * Used for guest check-in
+> * Used to book a room - create reservation
 > * Front-end HTML and CSS designed using VSCode then implemented in Blazor server project
 > * External JavaScript libraries implemented using JSInterop
 * ASP.NET API 
 > * Used by both Maui and Blazor server Apps
 * .NET MAUI App
+> * Used for guest check-in 
 > * Can be deployed on Windows, macOS, iOS, Android
 
 # Live Demo
