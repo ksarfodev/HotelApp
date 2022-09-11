@@ -19,10 +19,13 @@ This project consists of the following:
 # Live Demo
 ## Azure App Service
 * Visit the following website and make a reservation:
+>**Note**: The Azure website instance appears to be using UTC time.
+>
 > https://hotelappblazor20220909233915.azurewebsites.net
 
 ## Android APK
->**Note**: Install and use the provided APK to query data entered using the Azure website above
+>**Note**: Install and use the provided APK to query data entered using the Azure website above.
+Only hotel reservations made for the current [UTC] date will return results and allow for check-in.
 * Utilizes an Azure API
 * Sideload the APK located at HotelApp.Maui/Signed APK/com.companyname.hotelapp.maui-Signed.apk
 
