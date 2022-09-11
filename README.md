@@ -23,12 +23,16 @@ This project consists of the following:
 >
 > https://hotelappblazor20220909233915.azurewebsites.net
 
+## Windows Insaller
+>**Note**: Install and use the provided Window's App to query data entered using the Azure website above.
+* Install files are located in the following github folder: HotelApp.Maui_1.0.1.0_Sideload
+* Launch HotelApp.Maui_1.0.1.0_x64.msix to begin install
+
 ## Android APK
 >**Note**: Install and use the provided APK to query data entered using the Azure website above.
 Only hotel reservations made for the current [UTC] date will return results and allow for check-in.
 * Utilizes an Azure API
 * Sideload the APK located at HotelApp.Maui/Signed APK/com.companyname.hotelapp.maui-Signed.apk
-
 
 
 # Offline Demo - Setup
