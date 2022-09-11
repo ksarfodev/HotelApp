@@ -2,7 +2,7 @@
 
 # Introduction
 This project is a collection of demo MVP(minimally viable product) applications for hotel management.
-The original tutorial created by Tim Corey consists of an ASP.NET MVC WebApp, WPF Desktop app and no API. 
+The original tutorial created by Tim Corey consists of an ASP.NET Web App, WPF Desktop app and no API. 
 Source code can be found here: https://www.csharpmastercourse.com/
 
 This project consists of the following:
