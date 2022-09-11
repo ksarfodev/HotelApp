@@ -11,24 +11,24 @@ This project consists of the following:
 > * Front-end HTML and CSS designed using VSCode then implemented in Blazor server project
 > * External JavaScript libraries implemented using JSInterop
 * ASP.NET API 
-> * Sits between database and MAUI/Blazor Apps
+> * Used by both Maui and Blazor server Apps
 * .NET MAUI App
-> * WPF application converted to MAUI
+> * Can be deployed on Windows, macOS, iOS, Android
 
 
 # Live Demo
 ## Azure App Service
-> **Note**:The Azure instance appears to be 1 day ahead
-#
-https://hotelappblazor20220909233915.azurewebsites.net
+* Visit the following website and make a reservation:
+> https://hotelappblazor20220909233915.azurewebsites.net
 
 ## Android APK
+>**Note**: Install and use the provided APK to query data entered using the Azure website above
 * Utilizes an Azure API
-* Located at HotelApp.Maui/Signed APK/com.companyname.hotelapp.maui-Signed.apk
+* Sideload the APK located at HotelApp.Maui/Signed APK/com.companyname.hotelapp.maui-Signed.apk
 
 
 
-# Setup
+# Offline Demo - Setup
 * Use Visual Studio 2022 with .NET MAUI App UI Development workload installed
 * SQLite Studio or equivalent for sqlite table
 
