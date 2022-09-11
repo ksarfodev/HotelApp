@@ -31,7 +31,6 @@ This project consists of the following:
 ## Android APK
 >**Note**: Install and use the provided APK to query data entered using the Azure website above.
 Only hotel reservations made for the current [UTC] date will return results and allow for check-in.
-* Utilizes an Azure API
 * Sideload the APK located at HotelApp.Maui/Signed APK/com.companyname.hotelapp.maui-Signed.apk
 
 # Offline Demo - Setup
