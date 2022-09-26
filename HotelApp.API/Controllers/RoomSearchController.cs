@@ -20,7 +20,19 @@ namespace HotelApp.API.Controllers
         [HttpPost]
         public List<RoomTypeModel> Post(DateRange range)
         {
-            return _db.GetAvailableRoomTypes(range.StartDate, range.EndDate);
+            List<RoomTypeModel> result = new();
+            try
+            {
+                result = _db.GetAvailableRoomTypes(range.StartDate, range.EndDate);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex);
+            }
+
+            return result;
+           
         }
     }
 }

@@ -49,11 +49,20 @@ builder.Services.AddSwaggerGen(config =>
     });
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(
+        name: "AllowOrigin",
+        builder => { builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); }
+        );
+});
+
 builder.Services.AddControllers().AddNewtonsoftJson();
 
 var app = builder.Build();
 
 app.UseIpRateLimiting();
+app.UseCors("AllowOrigin");
 
 
 

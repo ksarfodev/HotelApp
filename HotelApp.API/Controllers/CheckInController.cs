@@ -20,7 +20,16 @@ namespace HotelApp.API.Controllers
         [HttpPost]
         public void Post(CheckIn checkIn)
         {
-            _db.CheckInGuest(checkIn.Id);
+            try
+            {
+                _db.CheckInGuest(checkIn.Id);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex);
+            }
+          
         }
     }
 }

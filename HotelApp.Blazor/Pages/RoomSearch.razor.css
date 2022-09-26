@@ -18,7 +18,8 @@ body::after {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    // width: 100%;
+    max-width: 6201px;
     height: 100vh;
     z-index: -1;
     filter: blur(0px);
@@ -199,8 +200,8 @@ body::after {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100vw;
+    max-width: 6201px;
     height: 100vh;
-    z-index: -1;
+
     filter: blur(0px);
 }

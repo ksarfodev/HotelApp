@@ -19,7 +19,15 @@ namespace HotelApp.API.Controllers
         [HttpPost]
         public void Post(NewBooking? booking)
         {
-            _db.BookGuest(booking.FirstName, booking.LastName, booking.StartDate, booking.EndDate, booking.RoomTypeId);
+            try
+            {
+                _db.BookGuest(booking.FirstName, booking.LastName, booking.StartDate, booking.EndDate, booking.RoomTypeId);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+          
         }
     }
 }

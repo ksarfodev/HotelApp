@@ -21,7 +21,19 @@ namespace HotelApp.API.Controllers
         [HttpPost]
         public RoomTypeModel Post([FromBody] int value)
         {
-            return _db.GetRoomTypeById(value);
+            RoomTypeModel result = new();
+
+            try
+            {
+                result = _db.GetRoomTypeById(value);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex);
+            }
+
+            return result;
         }
 
     }

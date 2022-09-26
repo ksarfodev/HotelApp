@@ -21,7 +21,16 @@ namespace HotelApp.API.Controllers
         [HttpPost]
         public List<BookingFullModel> Post([FromBody] LastNameSearch nameSearch)
         {
-            return _db.SearchBookings(nameSearch.LastName);
+            List<BookingFullModel> result = new();
+            try
+            {
+              result =  _db.SearchBookings(nameSearch.LastName);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            return result;
         }
     }
 }
