@@ -40,6 +40,8 @@ Only hotel reservations made for the current [UTC] date will return results and 
 # Usage
 * First launch HotelApp.API 
 * Next launch HotelApp.Blazor to create a reservation
+* Also try the Angular app to create a reservation: https://github.com/ksarfodev/HotelApp-Angular
 * Then launch HotelApp.Maui to check in
+
 
 
