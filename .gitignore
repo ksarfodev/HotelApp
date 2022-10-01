@@ -361,3 +361,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/HotelApp.API/Properties/ServiceDependencies/HotelAppAPI20220908213308 - Web Deploy
