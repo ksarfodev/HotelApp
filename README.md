@@ -17,11 +17,16 @@ This project consists of the following:
 > * Can be deployed on Windows, macOS, iOS, Android
 
 # Live Demo
-## Azure App Service
+## Blazor Web Assembly - Azure Static Web app
 * Visit the following website and make a reservation:
 >**Note**: The Azure website instance appears to be using UTC time.
 >
 > https://orange-dune-078d2960f.2.azurestaticapps.net
+
+## Angular - Azure Static Web app
+* Visit the following website and make a reservation:
+>
+> https://thankful-smoke-010a42f0f.2.azurestaticapps.net
 
 ## Windows Installer
 >**Note**: Install and use the provided Window's App to query data entered using the Azure website above.
