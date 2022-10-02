@@ -13,10 +13,39 @@ namespace HotelAppLibrary.Data
         private const string connectionStringName = "SqLiteDb";
         private readonly ISqliteDataAccess _db;
 
+        
+        const string Azure_DBPath = "D:\\home\\HotelAppDB.db";
+
+        static bool isDevEnv = true;
+
         public SqliteData(ISqliteDataAccess db)
         {
             _db = db;
+            //  HandleSqliteDb(); //uncomment this when publishing to Azure
         }
+
+
+        /// <summary>
+        /// *Not needed in development but can be enabled for testing after creating a "D:\home" directory on your machine.
+        /// Checks to see if sqlite database exists in the home directory of Azure App service to determine if 
+        /// the database file should be copied from the wwwroot folder. See "CopyDb() method"
+        /// https://github.com/projectkudu/kudu/wiki/Azure-Web-App-sandbox
+        /// </summary>
+        private void HandleSqliteDb()
+        {
+
+            if (!File.Exists(Azure_DBPath))
+            {
+                CopyDb();
+            }
+        }
+        private void CopyDb()
+        {
+            File.Copy("D:\\home\\site\\wwwroot\\HotelAppDB.db", Azure_DBPath);
+            File.SetAttributes(Azure_DBPath, FileAttributes.Normal);
+        }
+
+  
         public void BookGuest(string firstName, string lastName, DateTime startDate, DateTime endDate, int roomTypeId)
         {
             string sql = @"select 1 from Guests where FirstName = @firstName and LastName = @lastName";

@@ -1,0 +1,132 @@
+﻿@page "/roomsearch"
+
+@inject IJSRuntime JS
+@inject RoomSelection SelectedRoom
+
+
+@implements IAsyncDisposable
+@inject NavigationManager NavManager
+
+
+
+<div class="grid-container">
+    <header class="flex-container"><h1>ROOM SEARCH</h1></header>
+
+    <div class="start-date flex-container">
+        <div class="date-picker">
+            <div class="input">
+                <div class="result">Select Start Date: <span id="check-in-date"> @DateAsString.CheckIn</span></div>
+                <button> <i class="fa fa-calendar"></i></button>
+            </div>
+            <div class="calendar"></div>
+        </div>
+    </div>
+
+    <div class="end-date flex-container">
+        <div class="date-picker">
+
+            <div class="input">
+                <div class="result">Select End Date: <span id="check-out-date">@DateAsString.CheckOut</span></div>
+                <button><i class="fa fa-calendar"></i></button>
+            </div>
+            <div class="calendar"></div>
+        </div>
+    </div>
+
+    <div class="search flex-container">
+        <button @onclick="() => GoToBooking()" class="search-btn">
+            <span class="text">Search</span>
+        </button>
+    </div>
+
+    <footer class="flex-container">
+        <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestiae, eos obcaecati. Corporis voluptatum quibusdam laboriosam optio blanditiis itaque expedita fugiat repellendus sit commodi? Inventore ipsa, odio officia iste cumque eum.
+        </p>
+    </footer>
+
+</div>
+
+<style>
+    body {
+        /* width: 6201px;*/
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: url('https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80');
+        /*TODO: Determine why the locally stored image wont copy to Azure static web app when deployed*/
+        /* background-image: url('css/images/patrick-robert-doyle-ah8zkxqfita-unsplash.jpg');*/
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        z-index: 1;
+    }
+</style>
+
+
+
+@code {
+    private IJSObjectReference? module;
+
+
+    public class DateString
+    {
+        public string CheckIn { get; set; }
+        public string CheckOut { get; set; }
+    }
+
+    DateString DateAsString = new DateString
+        {
+            CheckIn = DateTime.Now.Date.ToString("MM/dd/yyyy"),
+            CheckOut = DateTime.Now.Date.AddDays(1).ToString("MM/dd/yyyy")
+        };
+
+    async Task GoToBooking()
+    {
+        await ProcessChange();
+        NavManager.NavigateTo("roombooking");
+    }
+
+    async Task ProcessChange()
+    {
+        //use dependency injection for Dates
+        var mod = await JS.InvokeAsync<IJSObjectReference>("import", "./Pages/RoomSearch.razor.js");
+        // Dates data = await mod.InvokeAsync<Dates>("getDates");
+        DateString dates = await mod.InvokeAsync<DateString>("getDates");
+
+        DateTime.TryParse(dates.CheckOut, out DateTime endDt);
+        DateTime.TryParse(dates.CheckIn, out DateTime startDt);
+
+        SelectedRoom.StartDate = startDt.Date;
+        SelectedRoom.EndDate = endDt.Date;
+
+
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender )
+        {
+            module = await JS.InvokeAsync<IJSObjectReference>("import", "./Pages/RoomSearch.razor.js");
+            await module.InvokeVoidAsync("initCalendar");
+        }
+    }
+
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        try
+        {
+            if (module is not null)
+            {
+               
+                await module.DisposeAsync();
+            }
+        }
+        catch (Exception ex) when (ex.GetType().Name == "JSDisconnectedException")
+        {
+            Debug.WriteLine(ex);
+        }
+        
+    }
+}

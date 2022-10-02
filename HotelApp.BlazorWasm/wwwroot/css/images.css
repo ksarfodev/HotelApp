@@ -1,0 +1,12 @@
+﻿body {
+    /* width: 6201px;*/
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background: url('../patrick-robert-doyle-ah8zkxqfita-unsplash.jpg');*/
+    background-image: url('./images/patrick-robert-doyle-ah8zkxqfita-unsplash.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}

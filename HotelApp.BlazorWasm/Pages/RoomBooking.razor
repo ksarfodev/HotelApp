@@ -4,7 +4,7 @@
 @inject IJSRuntime JS
 @inject NavigationManager NavManager
 @inject RoomSelection SelectedRoom
-@inject HotelApp.Blazor.Services.IApiService RoomSearch
+@inject IApiService RoomSearch
 
 @implements IAsyncDisposable
 
@@ -123,13 +123,13 @@
 <style>
     .my-style {
 
-    position: fixed;
-    margin: 10px;
-    padding: 50px;
-    background-color: #fefefe;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+        position: fixed;
+        margin: 10px;
+        padding: 50px;
+        background-color: #fefefe;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 
 </style>
@@ -150,18 +150,15 @@
                 AvailableRooms = await RoomSearch.GetAvalilableRooms();
 
                 StateHasChanged();
-            }
-            else
-            {
                 module = await JS.InvokeAsync<IJSObjectReference>("import", "./Pages/RoomBooking.razor.js");
                 await module.InvokeVoidAsync("initBooking");
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
-            Debug.WriteLine(ex.Message);
+
+            Console.WriteLine(ex.Message);
         }
-       
     }
 
     async Task BookRoom()
@@ -170,20 +167,27 @@
         {
             var response = await RoomSearch.BookGuest();
 
+            if (response.ReasonPhrase != "OK")
+            {
+                //show to error
+            }
+
             SelectedRoom.FirstName = "";
             SelectedRoom.LastName = "";
 
-            NavManager.NavigateTo("/");
+            NavManager.NavigateTo($"/",true);
         }
-        catch (Exception ex) 
+        catch (Exception ex)
         {
-            Console.WriteLine(ex);
+
+            Console.WriteLine(ex.Message) ;
         }
+
     }
 
     void GoHome()
     {
-        NavManager.NavigateTo("/");
+        NavManager.NavigateTo($"/",true);
     }
 
     async Task OpenModal(RoomTypeModel room)
@@ -192,11 +196,7 @@
         {
             SelectedRoom.FirstName = "";
             SelectedRoom.LastName = "";
-
             SelectedRoom.RoomType = room;
-
-            module = await JS.InvokeAsync<IJSObjectReference>("import", "./Pages/RoomBooking.razor.js");
-            await module.InvokeVoidAsync("initBooking");
 
             await RoomSearch.GetRoomTypeById();
 
@@ -205,6 +205,11 @@
         {
             System.Diagnostics.Debug.WriteLine(ex.Message);
         }
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await OnInitializedAsync();
     }
 
     async ValueTask IAsyncDisposable.DisposeAsync()
@@ -218,8 +223,10 @@
         }
         catch (Exception ex) when (ex.GetType().Name == "JSDisconnectedException")
         {
-            Debug.WriteLine(ex);
+
+            Debug.WriteLine(ex.Message);
         }
+       
     }
 }
 
