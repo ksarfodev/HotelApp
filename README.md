@@ -24,7 +24,7 @@ This project consists of the following:
 > * External JavaScript libraries implemented using JSInterop
 * ASP.NET API 
 > * The live demo uses an Azure Function with compiled Maui App
-> * The Offline version uses interfaces with both Maui and Blazor server Apps
+> * The Offline version interfaces with both Maui and Blazor server Apps
 * Azure Function App [API] 
 > * Used by the Blazor Wasm App and also compatible with Blazor Server
 > * To be budget friendly, it uses a sqlite database locally stored on the same Azure web service containing the Azure function
